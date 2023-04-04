@@ -1,0 +1,12 @@
+server:
+  shutdown: graceful
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: ${prod_database_url}
+    username: ${prod_database_username}
+    password: ${prod_database_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver

@@ -1,0 +1,13 @@
+server:
+  port: 9999
+  shutdown: immediate
+spring:
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  datasource:
+    url: ${dev_database_url}
+    username: ${dev_database_username}
+    password: ${dev_database_password}
+    driver-class-name: com.mysql.cj.jdbc.Driver

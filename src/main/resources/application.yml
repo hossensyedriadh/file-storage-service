@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: File Storage Service
+  servlet:
+    multipart:
+      location: "${java.io.tmpdir}file-storage\\files\\"
+      max-file-size: 10MB
+      max-request-size: 20MB
+server:
+  error:
+    whitelabel:
+      enabled: false
