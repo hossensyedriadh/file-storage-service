@@ -15,3 +15,16 @@ function deleteDocument(id, name) {
         });
     }
 }
+
+let reader = new FileReader();
+reader.onload = function (r_event) {
+    if (String(r_event.target.result).startsWith("data:image/")) {
+        document.getElementById('preview').setAttribute('src', String(r_event.target.result));
+    } else {
+        document.getElementById('preview').setAttribute('src', '../images/file.png');
+    }
+}
+
+document.getElementById('file').addEventListener('change', function (event) {
+    reader.readAsDataURL(this.files[0]);
+});

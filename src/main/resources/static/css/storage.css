@@ -1,0 +1,45 @@
+.file {
+    width: 22rem !important;
+    transition: all .2s;
+}
+
+.file:hover {
+    transform: scale(1.05);
+    box-shadow: 3px 3px 3px 3px #dfdfdf;
+}
+
+.file-icon {
+    font-size: 1.8rem;
+}
+
+.center-align {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.left-align {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: start;
+}
+
+.right-align {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.preview {
+    width: 200px;
+}
+
+#form_div {
+    width: 40vw;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
