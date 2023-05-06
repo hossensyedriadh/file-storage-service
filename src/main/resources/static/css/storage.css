@@ -1,24 +1,45 @@
-html, body {
-    scroll-behavior: smooth;
+@charset "utf-8";
+
+* {
+    box-sizing: border-box;
+}
+
+.custom-column {
+    float: left;
+    width: 33.33%;
+    padding: 10px;
+}
+
+.custom-row:after {
+    content: "";
+    display: table;
+    clear: both;
 }
 
 #file_upload_form {
-    order: 1;
-    width: 35vw !important;
+    width: 32vw !important;
+    top: 10% !important;
+    left: 8% !important;
+    position: fixed !important;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
 }
 
 #files_div {
-    order: 2;
-    width: 65vw !important;
+    overflow-y: auto !important;
+    scroll-behavior: smooth;
+}
+
+#div_divider {
+    position: fixed !important;
 }
 
 .file {
-    width: 22rem !important;
+    width: 20rem !important;
     transition: all .2s;
-    margin: 15px !important;
+    margin: 7px !important;
+    height: 195px !important;
 }
 
 .file:hover {
@@ -62,19 +83,45 @@ html, body {
     animation-fill-mode: forwards;
     animation-play-state: running;
     animation-iteration-count: infinite;
-    transition: all .2s;
+    animation-duration: .5s;
 }
 
 @keyframes highlight {
     from {
-        box-shadow: 0 0 12px 0 rgba(52, 152, 227, 0.75);
-        -webkit-box-shadow: 0 0 12px 0 rgba(52, 152, 227, 0.75);
-        -moz-box-shadow: 0 0 12px 0 rgba(52, 152, 227, 0.75);
+        box-shadow: 0 0 14px 1px rgba(0, 150, 219, 0.75);
+    }
+    to {
+        box-shadow: 0 0 14px 1px rgba(0, 227, 182, 0.75);
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .custom-column {
+        width: 100%;
+        float: none;
     }
 
-    to {
-        box-shadow: 0 0 12px 0 rgba(149, 204, 245, 0.75);
-        -webkit-box-shadow: 0 0 12px 0 rgba(149, 204, 245, 0.75);
-        -moz-box-shadow: 0 0 12px 0 rgba(149, 204, 245, 0.75);
+    #file_upload_form {
+        position: relative !important;
+        margin-top: 5vh;
+        top: 0 !important;
+        left: 0 !important;
+    }
+
+    #files_div {
+    }
+
+    #south_div {
+        display: flex;
+        align-items: center;
+    }
+
+    #div_divider {
+        display: none;
+    }
+
+    .file {
+        width: 25rem !important;
+        font-size: 1.15rem !important;
     }
 }
