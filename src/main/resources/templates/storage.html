@@ -64,7 +64,7 @@
             <div id="files_div" class="custom-row">
                 <div th:each="file : ${files}">
                     <div class="custom-column">
-                        <div class="ui raised segment file">
+                        <div class="ui raised segment file" th:id="${file.id}">
                             <div>
                                 <p>
                                     <span class="file-icon"> <i class="fas fa-file"></i> </span> <span
