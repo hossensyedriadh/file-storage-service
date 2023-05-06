@@ -3,7 +3,6 @@ package io.github.hossensyedriadh.filestorageservice.service;
 import io.github.hossensyedriadh.filestorageservice.entity.File;
 import io.github.hossensyedriadh.filestorageservice.enumerator.FileSizeUnit;
 import io.github.hossensyedriadh.filestorageservice.io.FileStorageService;
-import io.github.hossensyedriadh.filestorageservice.model.FileUploadRequest;
 import io.github.hossensyedriadh.filestorageservice.model.FileUploadResponse;
 import io.github.hossensyedriadh.filestorageservice.repository.FileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,11 +36,12 @@ public final class FileServiceImpl implements FileService {
     }
 
     @Override
-    public File save(FileUploadRequest fileUploadRequest, MultipartFile multipartFile) {
-        FileUploadResponse fileUploadResponse = this.fileStorageService.uploadFile(fileUploadRequest.getFileName(), multipartFile);
+    public File save(File file) {
+        MultipartFile multipartFile = file.getMultipartFile();
 
-        File file = new File();
-        file.setFileName(fileUploadRequest.getFileName());
+        FileUploadResponse fileUploadResponse = this.fileStorageService.uploadFile(file.getFileName(), multipartFile);
+
+        file.setFileName(fileUploadResponse.getFileName());
         file.setFileUrl(fileUploadResponse.getUrl());
         file.setContentType(fileUploadResponse.getContentType());
 

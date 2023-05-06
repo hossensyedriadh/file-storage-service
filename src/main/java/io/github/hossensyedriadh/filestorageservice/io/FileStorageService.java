@@ -1,6 +1,7 @@
 package io.github.hossensyedriadh.filestorageservice.io;
 
 import io.github.hossensyedriadh.filestorageservice.model.FileUploadResponse;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileUrlResource;
 import org.springframework.core.io.Resource;
@@ -28,8 +29,7 @@ public class FileStorageService {
                 location.mkdirs();
             }
 
-            fullPath = fullPath.concat(UUID.randomUUID().toString().concat("-").concat(multipartFile.getOriginalFilename() != null
-                    ? multipartFile.getOriginalFilename() : fileName));
+            fullPath = fullPath.concat(UUID.randomUUID().toString().concat("-").concat(multipartFile.getOriginalFilename()));
 
             File file = new File(fullPath);
             file.createNewFile();
@@ -37,6 +37,12 @@ public class FileStorageService {
             FileOutputStream fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(multipartFile.getBytes());
             fileOutputStream.close();
+
+            if (fileName != null && !fileName.equals("")) {
+                fileName = fileName.concat(".".concat(FilenameUtils.getExtension(fullPath)));
+            } else {
+                fileName = multipartFile.getOriginalFilename();
+            }
 
             return new FileUploadResponse(fileName, multipartFile.getContentType(), file.getPath());
         } catch (IOException e) {

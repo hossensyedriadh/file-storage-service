@@ -1,9 +1,7 @@
 package io.github.hossensyedriadh.filestorageservice.service;
 
 import io.github.hossensyedriadh.filestorageservice.entity.File;
-import io.github.hossensyedriadh.filestorageservice.model.FileUploadRequest;
 import org.springframework.core.io.Resource;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,7 +11,7 @@ public sealed interface FileService permits FileServiceImpl {
 
     Optional<File> file(String id);
 
-    File save(FileUploadRequest fileUploadRequest, MultipartFile multipartFile);
+    File save(File file);
 
     void delete(String id);
 

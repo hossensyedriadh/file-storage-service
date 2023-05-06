@@ -6,6 +6,12 @@ spring:
       location: "${java.io.tmpdir}file-storage\\files\\"
       max-file-size: 10MB
       max-request-size: 20MB
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  jpa:
+    open-in-view: false
 server:
   error:
     whitelabel:

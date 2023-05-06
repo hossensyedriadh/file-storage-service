@@ -9,6 +9,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -53,6 +54,9 @@ public class File {
     @Setter(AccessLevel.NONE)
     @Column(name = "uploaded_on", nullable = false)
     private LocalDateTime uploadedOn;
+
+    @Transient
+    private MultipartFile multipartFile;
 
     @PrePersist
     private void init() {

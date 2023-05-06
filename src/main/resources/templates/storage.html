@@ -19,76 +19,88 @@
     <title>File Storage Service</title>
 </head>
 <body>
-<div class="ui segment">
-    <div class="ui raised segment">
-        <div id="form_div">
-            <form id="file_upload_form" class="ui form" th:action="@{/storage/upload}" method="post"
-                  enctype="multipart/form-data">
-                <div class="form-row">
-                    <!--<div class="form-group col-xl-6 col-lg-6 col-md-6">
-                        <label for="fileName">File Name</label>
-                        <input type="text" class="form-control " id="fileName"
-                               name="fileName" maxlength="50" th:field="*{fileName}" required>
-                    </div>-->
-                    <div class="field">
-                        <div class="center-align">
-                            <img th:src="@{/images/file.png}" alt="file_preview" id="preview" class="preview"/>
+<div class="ui placeholder segment">
+    <div class="ui two column stackable center aligned grid">
+        <div class="ui vertical divider"></div>
+        <div class="middle aligned row">
+            <div class="column">
+                <form id="file_upload_form" class="ui form" th:object="${fileEntity}" th:action="@{/storage/}"
+                      method="post"
+                      enctype="multipart/form-data">
+                    <div class="form-row">
+                        <div class="field">
+                            <div class="center-align">
+                                <img th:src="@{/images/file.png}" alt="file_preview" id="preview" class="preview"/>
+                            </div>
+                        </div>
+                        <br>
+                        <div class="field">
+                            <div class="ui labeled input">
+                                <div class="ui label">
+                                    File name
+                                </div>
+                                <input type="text" placeholder="File Name" id="fileName"
+                                       name="fileName" maxlength="50">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <input type="file" class="ui input" id="multipartFile"
+                                   name="multipartFile" size="10485760"
+                                   required>
+                            <div class="ui info message">
+                                <div class="header">
+                                    Maximum file size: 10 MB
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <br>
                     <div class="field">
-                        <label for="file">Upload File</label>
-                        <input type="file" class="ui input" id="file"
-                               name="file" size="10485760"
-                               required>
-                        <div class="ui info message">
-                            <div class="header">
-                                Maximum file size: 10 MB
-                            </div>
+                        <div class="center-align">
+                            <button type="submit" class="ui teal button">
+                                <i class="fas fa-upload"></i>
+                                Upload
+                            </button>
                         </div>
                     </div>
-                </div>
-                <br>
-                <div class="field">
-                    <div class="center-align">
-                        <button type="submit" class="ui teal button">
-                            <i class="fas fa-upload"></i>
-                            Upload
-                        </button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <div class="ui dividing header"></div>
-    <div>
-        <div th:each="file : ${files}">
-            <div class="ui raised segment file">
-                <div>
-                    <p>
+                </form>
+            </div>
+            <div class="column">
+                <div id="files_div">
+                    <div th:each="file : ${files}">
+                        <div class="ui raised segment file">
+                            <div>
+                                <p>
                         <span class="file-icon">
                             <i class="fas fa-file"></i>
                         </span>
-                        <span th:text="${file.fileName}"></span>
-                    </p>
-                    <small><strong>Size: </strong><span th:text="${file.fileSize}"></span> <span
-                            th:text="${file.fileSizeUnit}"></span>
-                        <br>
-                        <span><strong>Uploaded on: </strong><span
-                                th:text="${#temporals.format(file.uploadedOn, 'yyyy-MM-dd hh:mm:ss a')}"></span></span>
-                    </small>
-                </div>
-                <div class="ui dividing header"></div>
-                <div class="right-align">
-                    <a th:href="@{/storage/download/{id}(id=${file.id})}" target="_blank"
-                       class="ui blue button">
-                        <i class="fas fa-download"></i>
-                    </a>
-                    <button type="button" th:data-name="${file.fileName}" th:data-id="${file.id}"
-                            onclick="deleteDocument(this.getAttribute('data-id'), this.getAttribute('data-name'))"
-                            class="ui red button">
-                        <i class="fas fa-trash"></i>
-                    </button>
+                                    <span th:text="${file.fileName}"></span>
+                                </p>
+                                <small><strong>Size: </strong><span th:text="${file.fileSize}"></span> <span
+                                        th:text="${file.fileSizeUnit}"></span>
+                                    <br>
+                                    <span><strong>Uploaded on: </strong><span
+                                            th:text="${#temporals.format(file.uploadedOn, 'yyyy-MM-dd hh:mm:ss a')}"></span></span>
+                                </small>
+                            </div>
+                            <div class="ui dividing header"></div>
+                            <div class="right-align">
+                                <a th:href="@{/storage/{id}(id=${file.id})}" target="_blank"
+                                   class="ui blue button">
+                                    <i class="fas fa-download"></i>
+                                </a>
+                                <button type="button" th:data-name="${file.fileName}"
+                                        onclick="deleteDocument(this.getAttribute('data-name'))"
+                                        class="ui red button">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                                <form th:action="@{'/storage/' + ${file.id}}" method="post" hidden="hidden">
+                                    <input type="hidden" name="_method" value="delete"/>
+                                    <input type="submit" id="deleteSubmit" hidden="hidden"/>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

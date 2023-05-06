@@ -1,6 +1,24 @@
+html, body {
+    scroll-behavior: smooth;
+}
+
+#file_upload_form {
+    order: 1;
+    width: 35vw !important;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#files_div {
+    order: 2;
+    width: 65vw !important;
+}
+
 .file {
     width: 22rem !important;
     transition: all .2s;
+    margin: 15px !important;
 }
 
 .file:hover {
@@ -37,9 +55,26 @@
     width: 200px;
 }
 
-#form_div {
-    width: 40vw;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+.file-highlight {
+    animation-name: highlight;
+    animation-direction: alternate-reverse;
+    animation-timing-function: ease-in-out;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+    animation-iteration-count: infinite;
+    transition: all .2s;
+}
+
+@keyframes highlight {
+    from {
+        box-shadow: 0 0 12px 0 rgba(52, 152, 227, 0.75);
+        -webkit-box-shadow: 0 0 12px 0 rgba(52, 152, 227, 0.75);
+        -moz-box-shadow: 0 0 12px 0 rgba(52, 152, 227, 0.75);
+    }
+
+    to {
+        box-shadow: 0 0 12px 0 rgba(149, 204, 245, 0.75);
+        -webkit-box-shadow: 0 0 12px 0 rgba(149, 204, 245, 0.75);
+        -moz-box-shadow: 0 0 12px 0 rgba(149, 204, 245, 0.75);
+    }
 }
