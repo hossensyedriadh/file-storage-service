@@ -19,32 +19,40 @@ public class FileStorageService {
     @Value("${spring.servlet.multipart.location}")
     private String storageBaseUrl;
 
-    @SuppressWarnings("all")
     public FileUploadResponse uploadFile(String fileName, MultipartFile multipartFile) {
         String fullPath = this.storageBaseUrl;
 
         try {
             File location = new File(fullPath);
             if (!location.exists()) {
-                location.mkdirs();
+                boolean isCreated = location.mkdirs();
+
+                if (!isCreated) {
+                    throw new RuntimeException("Failed to create folder");
+                }
             }
 
-            fullPath = fullPath.concat(UUID.randomUUID().toString().concat("-").concat(multipartFile.getOriginalFilename()));
+            fullPath = fullPath.concat(UUID.randomUUID().toString().concat("-").concat(multipartFile.getOriginalFilename() != null
+                    ? multipartFile.getOriginalFilename() : multipartFile.getName()));
 
             File file = new File(fullPath);
-            file.createNewFile();
+            boolean isCreated = file.createNewFile();
 
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            fileOutputStream.write(multipartFile.getBytes());
-            fileOutputStream.close();
+            if (isCreated) {
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                fileOutputStream.write(multipartFile.getBytes());
+                fileOutputStream.close();
 
-            if (fileName != null && !fileName.equals("")) {
-                fileName = fileName.concat(".".concat(FilenameUtils.getExtension(fullPath)));
+                if (fileName != null && !fileName.equals("")) {
+                    fileName = fileName.concat(".".concat(FilenameUtils.getExtension(fullPath)));
+                } else {
+                    fileName = multipartFile.getOriginalFilename();
+                }
+
+                return new FileUploadResponse(fileName, multipartFile.getContentType(), file.getPath());
             } else {
-                fileName = multipartFile.getOriginalFilename();
+                throw new RuntimeException("Failed to create file");
             }
-
-            return new FileUploadResponse(fileName, multipartFile.getContentType(), file.getPath());
         } catch (IOException e) {
             throw new RuntimeException(e.getMessage());
         }
